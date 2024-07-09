@@ -1,6 +1,38 @@
+import { useEffect } from 'react';
 import Head from 'next/head';
 
 function Success() {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = '//cdn.trackdesk.com/tracking.js';
+
+    const loadScript = () => {
+      script.onload = () => {
+        if (window.trackdesk) {
+          window.trackdesk("premiumacademytest", "conversion", {
+            "conversionType": "sale"
+          });
+        } else {
+          console.error('Trackdesk script loaded but window.trackdesk is undefined.');
+        }
+      };
+
+      script.onerror = () => {
+        console.error('Failed to load Trackdesk script.');
+      };
+
+      document.head.appendChild(script);
+    };
+
+    loadScript();
+
+    return () => {
+      // Limpiar el script cuando el componente se desmonte
+      document.head.removeChild(script);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <Head>
