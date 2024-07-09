@@ -1,4 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default nextConfig;
+const nextConfig = {
+    reactStrictMode: true,
+    // Opciones experimentales para personalizar la ubicación de las páginas
+    experimental: {
+      pageSrcDir: 'src/app',
+    },
+  };
+  
+  export default nextConfig;
+  
